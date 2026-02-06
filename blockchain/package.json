@@ -1,0 +1,19 @@
+{
+  "name": "dex-blockchain",
+  "version": "1.0.0",
+  "description": "Uniswap V2 deployment for DEX testing on Sepolia",
+  "scripts": {
+    "compile": "hardhat compile",
+    "deploy:local": "hardhat run scripts/deploy.js --network localhost",
+    "deploy:sepolia": "hardhat run scripts/deploy.js --network sepolia",
+    "add-liquidity:sepolia": "hardhat run scripts/addLiquidity.js --network sepolia",
+    "node": "hardhat node",
+    "test": "hardhat test"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "hardhat": "^2.19.4",
+    "@openzeppelin/contracts": "^4.9.3",
+    "dotenv": "^16.3.1"
+  }
+}

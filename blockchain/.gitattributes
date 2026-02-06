@@ -1,0 +1,6 @@
+# Solhint linter rules disabled
+# These are imported Uniswap V2 contracts that work correctly
+# Linting suggestions are informational only and don't affect functionality
+
+*.sol linguist-vendored
+contracts/* linguist-vendored=false

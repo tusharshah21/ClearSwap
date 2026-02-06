@@ -1,0 +1,23 @@
+[
+    {
+        "ticker": "SG",
+        "img": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "name": "SG Token",
+        "address": "0x0daABD82B88FA5056E52BaE7312987b5e17B917F",
+        "decimals": 18
+    },
+    {
+        "ticker": "SHIS",
+        "img": "https://s2.coinmarketcap.com/static/img/coins/64x64/2396.png",
+        "name": "SHIS Token",
+        "address": "0xf65fFb885Abdd91dE948239bA476d264FdEFA37e",
+        "decimals": 18
+    },
+    {
+        "ticker": "WETH",
+        "img": "https://s2.coinmarketcap.com/static/img/coins/64x64/2396.png",
+        "name": "Wrapped Ether",
+        "address": "0xfFf9976782d46CC05630D1f6eBAb18b2324d6B14",
+        "decimals": 18
+    }
+]
