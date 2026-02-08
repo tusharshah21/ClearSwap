@@ -18,6 +18,9 @@ function Header(props) {
         <Link to="/tokens" className="link">
           <div className="headerItem">Tokens</div>
         </Link>
+        <Link to="/hook" className="link">
+          <div className="headerItem" style={{ color: '#1890ff' }}>v4 Hook</div>
+        </Link>
       </div>
       <div className="rightH">
         <div className="headerItem">

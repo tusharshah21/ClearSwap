@@ -2,6 +2,7 @@ import "./App.css";
 import Header from "./components/Header";
 import Swap from "./components/Swap";
 import Tokens from "./components/Tokens";
+import HookDashboard from "./components/HookDashboard";
 import { Routes, Route } from "react-router-dom";
 import { useConnect, useAccount } from "wagmi";
 import { MetaMaskConnector } from "wagmi/connectors/metaMask";
@@ -19,6 +20,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Swap />} />
           <Route path="/tokens" element={<Tokens />} />
+          <Route path="/hook" element={<HookDashboard />} />
         </Routes>
       </div>
     </div>

@@ -1,11 +1,23 @@
 # ClearSwap
 
-A decentralized exchange (DEX) built on Uniswap V2 protocol, enabling seamless token swaps on Ethereum Sepolia testnet.
+A decentralized exchange (DEX) built on Uniswap V2 protocol, with a **Uniswap v4 Adaptive Fee Hook** that dynamically adjusts swap fees based on on-chain volatility.
+
+## HackMoney 2025 — Uniswap v4 Track
+
+**VolatilityFeeHook** is a Uniswap v4 Hook that uses an EWMA (Exponential Weighted Moving Average) of realized tick volatility to automatically adjust LP fees from **5 bps** (calm markets) to **100 bps** (volatile markets) — earning LPs **2.7x more revenue** versus static fees.
+
+See [v4-hooks/README.md](v4-hooks/README.md) for full details, architecture, and test results.
+
+### Deployed on Sepolia
+- **VolatilityFeeHook:** `0xF615dF4Eec1f0D5f85E187ac7ad6F386C42990C0`
+- **Pool ID:** `0xc28230269cc9e49e9e76a6a80e5f21fdc22f192004f88eeacf9be25367231af4`
+- **Deployment Tx:** [`0x6437b93b...`](https://sepolia.etherscan.io/tx/0x6437b93b3961d241754aee2b765815d2911d1b61cf68db9d89fdd3b4a6258431)
 
 ## Features
 
 - 🔄 Token swaps with real-time price calculation
 - 💧 Liquidity pool integration (AMM model)
+- 📊 **Adaptive fee dashboard** — live EWMA volatility, fee gauge, event log
 - 🌐 Multi-network support (Sepolia, Mainnet, Localhost)
 - 🔗 MetaMask wallet connection
 - ⚡ Fast execution with instant price updates
@@ -14,7 +26,8 @@ A decentralized exchange (DEX) built on Uniswap V2 protocol, enabling seamless t
 
 **Frontend:** React 18, Vite, Wagmi, Ethers.js, Ant Design  
 **Blockchain:** Hardhat, Solidity (0.5.16/0.6.6/0.8.19), Uniswap V2 Protocol  
-**Network:** Ethereum Sepolia Testnet, Alchemy RPC
+**v4 Hook:** Foundry, Solidity 0.8.26, Uniswap v4-core, OpenZeppelin uniswap-hooks  
+**Network:** Ethereum Sepolia Testnet
 
 ## Quick Start
 
@@ -47,17 +60,18 @@ npx hardhat run scripts/deploy.js --network sepolia
 ## Project Structure
 
 ```
-DEX-Exchange/
-├── blockchain/          # Hardhat project
-│   ├── contracts/       # Uniswap V2 contracts
-│   ├── scripts/         # Deployment scripts
-│   └── hardhat.config.js
-├── dex/                 # React frontend
-│   ├── src/
-│   │   ├── components/  # Swap, Tokens, Header
-│   │   └── config/      # Network configurations
+ClearSwap/
+├── v4-hooks/              # Uniswap v4 Hook (HackMoney 2025)
+│   ├── src/               # VolatilityFeeHook.sol
+│   ├── test/              # 8 tests (all passing)
+│   └── script/            # Deploy, Pool, Swap scripts
+├── blockchain/            # Hardhat project (Uniswap V2)
+│   ├── contracts/         # V2 contracts
+│   └── scripts/           # Deployment scripts
+├── dex/                   # React frontend
+│   ├── src/components/    # Swap, HookDashboard, Header
 │   └── vite.config.js
-└── README.md
+└── DEPLOYMENT_GUIDE.md
 ```
 
 ## Configuration
@@ -86,7 +100,13 @@ DEX-Exchange/
 
 ## Testing
 
-See [SEPOLIA_TESTING.md](SEPOLIA_TESTING.md) for detailed testing instructions.
+```bash
+# V4 Hook tests
+cd v4-hooks
+forge test --via-ir -vv
+```
+
+See [DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md) for Sepolia deployment instructions.
 
 ## License
 

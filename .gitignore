@@ -19,6 +19,12 @@ dist/
 .env.production.local
 blockchain/.env
 dex/.env
+v4-hooks/.env
+
+# Foundry
+v4-hooks/out/
+v4-hooks/cache/
+v4-hooks/broadcast/
 
 # Hardhat
 cache/
@@ -40,3 +46,6 @@ logs/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+v4-hooks/lib/
+v4-hooks/out/
+v4-hooks/cache/
