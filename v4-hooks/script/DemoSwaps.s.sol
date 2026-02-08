@@ -36,7 +36,7 @@ contract DemoSwapsScript is Script {
     using PoolIdLibrary for PoolKey;
 
     function run() public {
-        vm.envAddress("POOL_MANAGER"); // validate env var exists
+        address poolManager = vm.envAddress("POOL_MANAGER");
         address hookAddr = vm.envAddress("HOOK");
         address tokenA = vm.envAddress("TOKEN_A");
         address tokenB = vm.envAddress("TOKEN_B");
@@ -60,9 +60,9 @@ contract DemoSwapsScript is Script {
 
         vm.startBroadcast();
 
-        // Approve tokens for swap router
-        IERC20(token0).approve(swapRouter, type(uint256).max);
-        IERC20(token1).approve(swapRouter, type(uint256).max);
+        // Approve tokens for PoolManager (Uniswap v4 requirement)
+        IERC20(token0).approve(poolManager, type(uint256).max);
+        IERC20(token1).approve(poolManager, type(uint256).max);
 
         console.log("");
         console.log("=== VolatilityFeeHook Demo Swaps ===");
