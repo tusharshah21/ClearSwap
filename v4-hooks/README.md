@@ -214,6 +214,26 @@ npm run dev
 
 The dashboard shows real-time EWMA volatility, current fee (with visual gauge), a sparkline chart, and recent `VolatilityUpdated` event log. Auto-refresh polls every 6 seconds.
 
+### ENS Hook Discovery
+
+The dashboard supports **human-readable hook discovery via ENS**. Instead of copy-pasting hex addresses, operators can publish their hook configuration as ENS text records:
+
+| Text Record Key | Value | Purpose |
+|---|---|---|
+| `uniswapV4Hook` | `0xF615dF4...` | Hook contract address |
+| `poolId` | `0xc28230...` | Pool identifier (bytes32) |
+
+**How it works:**
+1. Hook operator sets text records on their ENS name (e.g. `clearswap.eth`) at [app.ens.domains](https://app.ens.domains)
+2. Anyone opens the dashboard, types `clearswap.eth`, hits "Resolve"
+3. Dashboard reads the text records from mainnet ENS and auto-configures
+
+**Why ENS for protocol agents:**
+- **Decentralized discovery** — no centralized hook registry needed
+- **Human-readable** — agents and users find hooks by name, not hex
+- **Control plane** — operators update their ENS records to point to new deployments without touching the dashboard
+- **Read-only** — the dashboard never writes to ENS or requires transactions
+
 ---
 
 ## Quantitative Result: 2.7x More LP Revenue
@@ -288,7 +308,8 @@ By increasing fees during high-volatility (arbitrage-heavy) periods, the hook ma
 - [x] Deployment scripts for Sepolia (DeployHook + CreatePool + DemoSwaps)
 - [x] Frontend dashboard (`/hook` route) for live monitoring
 - [x] Quantitative metric: 2.7x LP revenue vs static fees
-- [ ] TxID transactions on Sepolia (run deployment scripts above)
+- [x] ENS integration — human-readable hook discovery via text records
+- [x] TxID transactions on Sepolia
 - [ ] Demo video (max 3 min) — see 90-second script above
 
 ## What's Next
@@ -304,6 +325,7 @@ By increasing fees during high-volatility (arbitrage-heavy) periods, the hook ma
 
 - [Uniswap v4 Core](https://github.com/Uniswap/v4-core) — Singleton pool manager with hooks
 - [OpenZeppelin Uniswap Hooks](https://github.com/OpenZeppelin/uniswap-hooks) — BaseHook framework
+- [ENS](https://ens.domains) — Decentralized hook discovery via text records
 - [Foundry](https://github.com/foundry-rs/foundry) — Solidity development toolkit
 
 ## License

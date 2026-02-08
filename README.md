@@ -2,7 +2,7 @@
 
 A decentralized exchange (DEX) built on Uniswap V2 protocol, with a **Uniswap v4 Adaptive Fee Hook** that dynamically adjusts swap fees based on on-chain volatility.
 
-## HackMoney 2025 — Uniswap v4 Track
+## HackMoney 2026 — Uniswap v4 Track + ENS
 
 **VolatilityFeeHook** is a Uniswap v4 Hook that uses an EWMA (Exponential Weighted Moving Average) of realized tick volatility to automatically adjust LP fees from **5 bps** (calm markets) to **100 bps** (volatile markets) — earning LPs **2.7x more revenue** versus static fees.
 
@@ -18,6 +18,7 @@ See [v4-hooks/README.md](v4-hooks/README.md) for full details, architecture, and
 - 🔄 Token swaps with real-time price calculation
 - 💧 Liquidity pool integration (AMM model)
 - 📊 **Adaptive fee dashboard** — live EWMA volatility, fee gauge, event log
+- 🔗 **ENS hook discovery** — resolve hook config from ENS text records (e.g. `clearswap.eth`)
 - 🌐 Multi-network support (Sepolia, Mainnet, Localhost)
 - 🔗 MetaMask wallet connection
 - ⚡ Fast execution with instant price updates
@@ -27,6 +28,7 @@ See [v4-hooks/README.md](v4-hooks/README.md) for full details, architecture, and
 **Frontend:** React 18, Vite, Wagmi, Ethers.js, Ant Design  
 **Blockchain:** Hardhat, Solidity (0.5.16/0.6.6/0.8.19), Uniswap V2 Protocol  
 **v4 Hook:** Foundry, Solidity 0.8.26, Uniswap v4-core, OpenZeppelin uniswap-hooks  
+**ENS:** Text record resolution for decentralized hook discovery  
 **Network:** Ethereum Sepolia Testnet
 
 ## Quick Start

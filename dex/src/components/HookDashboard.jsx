@@ -11,6 +11,7 @@ import {
 import { useAccount, useNetwork } from "wagmi";
 import { ethers } from "ethers";
 import hookABI from "../VolatilityFeeHook.json";
+import ENSHookLoader from "./ENSHookLoader";
 
 // ═══════════════════════════════════════════════════════════════════
 //  DEFAULT ADDRESSES — Update after deploying to Sepolia
@@ -255,6 +256,29 @@ function HookDashboard() {
     message.success("Hook config saved");
   };
 
+  // ── ENS resolution callback ────────────────────────────────────
+  // When ENSHookLoader resolves a name, populate the config fields.
+  // This bridges ENS (human-readable discovery) with the dashboard.
+  const handleENSResolved = useCallback((resolvedHook, resolvedPool) => {
+    if (resolvedHook) {
+      setHookAddress(resolvedHook);
+      setTempHook(resolvedHook);
+    }
+    if (resolvedPool) {
+      setPoolId(resolvedPool);
+      setTempPool(resolvedPool);
+    }
+    // Persist to localStorage so it survives page refresh
+    localStorage.setItem(
+      `hook_config_${chainId}`,
+      JSON.stringify({
+        hookAddress: resolvedHook || hookAddress,
+        poolId: resolvedPool || poolId,
+      })
+    );
+    message.success("Hook config loaded from ENS");
+  }, [chainId, hookAddress, poolId]);
+
   // ── UI constants ───────────────────────────────────────────────
   const explorerUrl = DEFAULT_CONFIG[chainId]?.explorer || "";
   const isConfigured = hookAddress && poolId;
@@ -306,6 +330,9 @@ function HookDashboard() {
           )}
         </div>
       </div>
+
+      {/* ── ENS Hook Discovery ────────────────────────────────────── */}
+      <ENSHookLoader onHookResolved={handleENSResolved} />
 
       {/* ── Not configured ────────────────────────────────────────── */}
       {!isConfigured && (
@@ -451,6 +478,23 @@ function HookDashboard() {
         okText="Save"
         width={480}
       >
+        {/* ENS quick-load inside modal */}
+        <div style={{ marginBottom: 16 }}>
+          <ENSHookLoader
+            onHookResolved={(hook, pool) => {
+              if (hook) setTempHook(hook);
+              if (pool) setTempPool(pool);
+            }}
+          />
+        </div>
+
+        <div style={{
+          fontSize: 11, color: "#666", textAlign: "center",
+          margin: "-4px 0 12px", textTransform: "uppercase", letterSpacing: 1
+        }}>
+          — or enter manually —
+        </div>
+
         <div style={{ marginBottom: 16 }}>
           <label style={{ display: "block", marginBottom: 4, fontWeight: 600 }}>
             Hook Contract Address
